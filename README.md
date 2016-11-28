@@ -1,29 +1,15 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+# README #
 
-### What is this repository for? ###
+run: mvn spring-boot:run
+testes: nvn test
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+urls:
 
-### How do I get set up? ###
-#Teste
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+   http://localhost:8080/products/allProductsExcludingRelationships
+   http://localhost:8080/products/allProductsSpecifiedRelationships
+   http://localhost:8080/products/productSpecifiedRelationships/{id}
+   http://localhost:8080/products/produtExcludingRelationships/{id}
+   http://localhost:8080/products/childProductList/{id}
+   http://localhost:8080/products/imageList/{id}
