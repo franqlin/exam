@@ -2,7 +2,6 @@ package codeavenue;
 
 import avenuecode.model.Image;
 import avenuecode.model.Product;
-import avenuecode.service.ImageService;
 import avenuecode.service.ProductService;
 import org.junit.After;
 import org.junit.Assert;
@@ -24,7 +23,7 @@ public class ProductTest {
     @Autowired
     private ProductService productService;
     @Autowired
-    private ImageService imageService;
+    //private ImageService imageService;
 
     @Before
     public void setUp() {
