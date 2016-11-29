@@ -107,7 +107,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "com.codeavenue.Product[ id=" + id + " ]";
+        return "codeavenue.Product[ id=" + id + " ]";
     }
 
 }
