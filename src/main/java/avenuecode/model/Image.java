@@ -1,4 +1,6 @@
 package avenuecode.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,6 +35,7 @@ public class Image implements Serializable {
     @Size(max = 50)
     @Column(name = "TYPE")
     private String type;
+    @JsonIgnore
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
     @ManyToOne
     private Product productId;

@@ -1,7 +1,10 @@
 package avenuecode.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,8 +33,9 @@ public class Product implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    /**@OneToMany(mappedBy = "productId")
-    private Collection<Image> imageCollection;**/
+    //@JsonIgnore
+    @OneToMany(mappedBy = "productId",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Image> images;
 
     @JoinColumn(name = "PARENT_PRODUCT", referencedColumnName = "ID")
     @ManyToOne
@@ -68,15 +72,15 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    /**
-    public Collection<Image> getImageCollection() {
-        return imageCollection;
+
+    public Set<Image> getImages() {
+        return images;
     }
 
-    public void setImageCollection(Collection<Image> imageCollection) {
-        this.imageCollection = imageCollection;
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
-    */
+
     public Product getParentProduct() {
         return parentProduct;
     }
