@@ -1,17 +1,17 @@
 
 package avenuecode.service.impl;
 
-import avenuecode.dao.ProductDao;
 import avenuecode.model.Image;
 import avenuecode.model.Product;
+import avenuecode.repository.ProductRepository;
+import avenuecode.repository.projection.NoParentProjection;
 import avenuecode.service.ProductService;
 
-import java.util.Collection;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,9 @@ import org.springframework.stereotype.Component;
 public class ProductServiceImpl implements ProductService {
 	 @PersistenceContext 
      private EntityManager em;
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    @Resource(name= "productRepository")
+    private ProductRepository productRepository;
 
     @Autowired
     public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -34,33 +36,38 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public List<Product> getAllProductIncludingRelationship() {
-    return em.createQuery("select p from Product p", Product.class).getResultList();
+    //return em.createQuery("select p from Product p", Product.class).getResultList();
+    return productRepository.findAllWithRelationship();
   }
     @Override
-   public List<Object> getAllProductExcludingRelationship() {
-        return em.createQuery("select p.id,p.description,p.name from Product p").getResultList();
+   public List<NoParentProjection> getAllProductExcludingRelationship() {
+        //return em.createQuery("select p.id,p.description,p.name from Product p").getResultList();
+        return productRepository.getAllProductExcludingRelationship();
    }
     @Override
-    public Product getProductById(Integer  productId) {
-        return em.find(Product.class,productId);
+    public Product getProductById(Long  productId) {
+        //return em.find(Product.class,productId);
+        return productRepository.findById(productId);
     }
     @Override
-    public List<Product> getChildProductList(Integer  productId){
-        return em.createQuery("select p from Product p where p.parentProduct.id = :productId", Product.class).setParameter("productId", productId).getResultList();
+    public List<Product> getChildProductList(Long  productId){
+        return productRepository.findChildProductListById(productId);
+        //return em.createQuery("select p from Product p where p.parentProduct.id = :productId", Product.class).setParameter("productId", productId).getResultList();
     }
     @Override
-    public List<Image> getImageList(Integer  productId){
-        return em.createQuery("select i from Image i where i.productId.id = :productId", Image.class).setParameter("productId", productId).getResultList();
+    public List<Image> getImageList(Long  productId){
+        return productRepository.getImageList(productId);
+        //return em.createQuery("select i from Image i where i.productId.id = :productId", Image.class).setParameter("productId", productId).getResultList();
     }
     @Override
-    public Object getProductExcludingRelationshipId(int productId){
-        return em.createQuery("select p.id,p.description,p.name from Product p where p.id= :productId").setParameter("productId", productId).getSingleResult();
+    public NoParentProjection getProductExcludingRelationshipId(Long productId){
+        //return em.createQuery("select p.id,p.description,p.name from Product p where p.id= :productId").setParameter("productId", productId).getSingleResult();
+        return productRepository.getProductExcludingRelationship(productId);
     }
     @Override
-    public void insert(){
-        Product p = new Product();
-        p.setName("Teste");
-        em.persist(p);
+    public List<NoParentProjection>  teste(){
+
+        return productRepository.getAllProductExcludingRelationship();
     }
 
 }

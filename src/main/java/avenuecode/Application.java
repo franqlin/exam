@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"avenuecode,avenuecode.dao,avenuecode.dao.impl","avenuecode.service","avenuecode.service.impl"})
+@ComponentScan(basePackages = {"avenuecode,avenuecode.repository,avenuecode.repository.impl","avenuecode.service","avenuecode.service.impl"})
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

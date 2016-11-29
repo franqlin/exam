@@ -3,6 +3,7 @@ import avenuecode.model.Image;
 import avenuecode.model.Product;
 import java.util.List;
 
+import avenuecode.repository.projection.NoParentProjection;
 import org.springframework.stereotype.Service;
 
 
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
 
 	public List<Product> getAllProductIncludingRelationship();
-	public List<Object> getAllProductExcludingRelationship();
-    public Product getProductById(Integer  productId);
-    public List<Product> getChildProductList(Integer  productId);
-    public List<Image> getImageList(Integer  productId);
-    public Object getProductExcludingRelationshipId(int productId);
-    public void insert();
+	public List<NoParentProjection> getAllProductExcludingRelationship();
+    public Product getProductById(Long  productId);
+    public List<Product> getChildProductList(Long  productId);
+    public List<Image> getImageList(Long  productId);
+    public NoParentProjection getProductExcludingRelationshipId(Long productId);
+    public List<NoParentProjection> teste();
 }

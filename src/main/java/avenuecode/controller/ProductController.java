@@ -8,6 +8,7 @@ package avenuecode.controller;
 
 import avenuecode.model.Image;
 import avenuecode.model.Product;
+import avenuecode.repository.projection.NoParentProjection;
 import avenuecode.service.ProductService;
 
 import java.util.Collection;
@@ -44,8 +45,8 @@ public class ProductController {
      * a)Get all products excluding relationships (child products, images)
      */
     @RequestMapping(method = RequestMethod.GET, value = "/allProductsExcludingRelationships", produces = {"application/json"})
-    Collection<Object> getAllProductsExcludingRelationships() {
-        Collection<Object> products = productService.getAllProductExcludingRelationship();
+    Collection<NoParentProjection> getAllProductsExcludingRelationships() {
+        Collection<NoParentProjection> products = productService.getAllProductExcludingRelationship();
         return products;
     }
 
@@ -63,21 +64,21 @@ public class ProductController {
      */
 
     @RequestMapping(method = RequestMethod.GET, value = "/productSpecifiedRelationships/{id}", produces = {"application/json"})
-   Product getProductByIdSpecifiedRelationships(@PathVariable("id") Integer  id) {
+   Product getProductByIdSpecifiedRelationships(@PathVariable("id") Long  id) {
         return productService.getProductById(id);
     }
     /**
      * d)Same as 2 using specific product identity
      */
     @RequestMapping(method = RequestMethod.GET, value = "/produtExcludingRelationships/{id}", produces = {"application/json"})
-    Object getProductByIdExcludingRelationships(@PathVariable("id") Integer  id) {
+    NoParentProjection getProductByIdExcludingRelationships(@PathVariable("id") Long  id) {
         return productService.getProductExcludingRelationshipId(id);
     }
     /**
      *Get set of child products for specific product
      */
     @RequestMapping(method = RequestMethod.GET, value = "/childProductList/{id}", produces = {"application/json"})
-    Collection<Product> getChildProductList(@PathVariable("id") Integer  id) {
+    Collection<Product> getChildProductList(@PathVariable("id") Long  id) {
         return productService.getChildProductList(id);
     }
 
@@ -87,13 +88,13 @@ public class ProductController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/imageList/{id}", produces = {"application/json"})
-    Collection<Image> getImageList(@PathVariable("id") Integer  id) {
+    Collection<Image> getImageList(@PathVariable("id") Long  id) {
         return productService.getImageList(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/save")
-    void save() {
-        productService.insert();
+    @RequestMapping(method = RequestMethod.GET, value = "/save", produces = {"application/json"})
+    Collection<NoParentProjection> teste() {
+      return  productService.teste();
     }
 
 }
