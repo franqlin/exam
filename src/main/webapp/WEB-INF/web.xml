@@ -4,9 +4,4 @@
 
 <web-app>
 	<display-name>Avenue Code</display-name>
-
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-bean-config.xml</param-value>
-	</context-param>
 </web-app>
